@@ -546,3 +546,4 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/django,python,virtualenv,visualstudio
+.vscode/settings.json
