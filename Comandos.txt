@@ -8,3 +8,5 @@
 //instalar dep
     pip install -r requirements.txt
 //================
+//up server 
+    python manager runserver
