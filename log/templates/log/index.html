@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Log{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="arquivo">
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if arquivoLog %}
+    <br/>
+        <pre>
+            <code>{{ arquivoLog }}</code>
+        </pre>
+    {% endif %}
+{% endblock %}
