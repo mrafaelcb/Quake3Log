@@ -20,11 +20,13 @@
     {% block styles %}{% endblock %}
   </head>
   <body class="text-center">
-    <main>
-        {% block content %}
-          {% block scripts %}
+    <div class="sticky-top">
+      <main>
+          {% block content %}
+            {% block scripts %}
+            {% endblock %}
           {% endblock %}
-        {% endblock %}
-    </main>
+      </main>
+    </div>
   </body>
 </html>

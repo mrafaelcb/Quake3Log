@@ -3,14 +3,33 @@
 
 {% block title %}Log{% endblock %}
 
+{% block meta %}
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .center {
+            margin: 50%;
+        }
+    </style>
+{% endblock %}
+
 {% block scripts %}
 {% endblock %}
 
 {% block content %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" name="arquivo">
-        <button type="submit">Upload</button>
+        <div class="group">
+            <input class="form-control {% if form.password.errors %} is-invalid {% else %} is-valid {% endif %} "
+                name="arquivo" type="file" required>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <div class="invalid-feedback">
+                {{form.arquivo.errors}}
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>
     </form>
 
     {% if arquivoLog %}
