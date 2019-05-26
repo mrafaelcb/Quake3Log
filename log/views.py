@@ -17,10 +17,7 @@ def IndexView(request):
         arquivo = request.FILES['arquivo']
         fs = FileSystemStorage()
         filename = fs.save(arquivo.name, arquivo)
-        # render(request, 'log/index.html', {
         return JsonResponse(parser_jogo(os.path.join(settings.MEDIA_ROOT, filename)))
-            #'arquivoLog': 
-        #})
     return render(request, 'log/index.html')
 
 def parser_jogo(arquivo_log):
@@ -29,15 +26,14 @@ def parser_jogo(arquivo_log):
     dicionario_jogo = OrderedDict()
     with open(arquivo_log, "r", encoding="utf-8") as fp:
         for linha in fp.readlines():
-            if regex_inicio_game.match(linha):
-                key = numero_jogo.format(jogo_contador)
-                dicionario_jogo[key] = {
-                    "total_kills": 0,
-                    "players": [],
-                    "kills": {},
+            if(regex_inicio_game.match(linha)):
+                key=numero_jogo.format(jogo_contador)
+                dicionario_jogo[key]={
+                    "total_kills":0,
+                    "players":[],
+                     "kills": {},
                 }
-                jogo_contador += 1
-
+                jogo_contador+=1
             if regex_mortes.match(linha):
                 parser_mortes(linha, dicionario_jogo[key])
     return dicionario_jogo
@@ -47,15 +43,12 @@ def parser_mortes(linha, jogo):
     aux = regex_mortes.match(linha)
     vivo = aux.group(1).strip()
     morto = aux.group(2).strip()
-
     jogo["total_kills"] += 1
     if (vivo != "<world>" and vivo
             not in jogo["players"]):
         jogo["players"].append(vivo)
-
     if morto not in jogo["players"]:
         jogo["players"].append(morto)
-
     if vivo != "<world>":
         if vivo in jogo["kills"].keys():
             jogo["kills"][vivo] += 1
